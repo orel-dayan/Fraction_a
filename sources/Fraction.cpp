@@ -4,19 +4,19 @@ namespace ariel
 {
 
   /**
-   * @brief  gcd - greatest common divisor  - Euclidean algorithm
+   * @brief  __gcd- greatest common divisor  - Euclidean algorithm
    *
    * @param a - the numerator
    * @param b - the denominator
    * @return long long - the greatest common divisor
    */
-  long long gcd(long long a, long long b)
+  long long __gcd(long long a, long long b)
   {
     if (b == 0)
     {
       return a;
     }
-    return gcd(b, a % b);
+    return __gcd(b, a % b);
   }
 
   /**
@@ -188,20 +188,30 @@ namespace ariel
     *this = *this / frac;
     return *this;
   }
+  // opertor ++ (pre)
+  Fraction &Fraction::operator++()
+  {
+    return (*this += 1);
+  }
 
   // opertor ++ (int)
   Fraction Fraction::operator++(int)
   {
     Fraction temp = *this;
-    *this += Fraction(1, 1);
+    *this += 1;
     return temp;
+  }
+  // opertor -- (pre)
+  Fraction &Fraction::operator--()
+  {
+    return (*this -= 1);
   }
 
   // opertor -- (int)
   Fraction Fraction::operator--(int)
   {
     Fraction temp = *this;
-    *this -= Fraction(1, 1);
+    *this -= 1;
     return temp;
   }
 
@@ -257,7 +267,7 @@ namespace ariel
     return stream;
   }
 
-  // helper functions
+  // private method for simplifying fraction
 
   Fraction &Fraction::simplify()
   {
@@ -267,9 +277,9 @@ namespace ariel
       return *this;
     }
 
-    int g = gcd(m_numetator, m_denominator);
-    m_numetator /= g;
-    m_denominator /= g;
+    int gcd = __gcd(m_numetator, m_denominator);
+    m_numetator /= gcd;
+    m_denominator /= gcd;
 
     if (m_denominator < 0)
     {

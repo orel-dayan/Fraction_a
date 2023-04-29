@@ -26,35 +26,39 @@ namespace ariel
     int m_numetator;   // Numerator
     int m_denominator; // Denominator
 
-    Fraction &simplify(); // simplify the fraction
+    // private method :
+
+    Fraction &simplify(); // simplify the fraction , & - return by reference because we want to chain the operators
 
   public:
-    Fraction() : m_numetator(0), m_denominator(1) {}
+    Fraction() : m_numetator(0), m_denominator(1) {} // default constructor
 
-    Fraction(int numerator, int denominator);
+    Fraction(int numerator, int denominator); // constructor with parameters (numerator, denominator)
 
-    Fraction(float frac) : Fraction((int)(frac * MAX_DIGITS), MAX_DIGITS) {}
+    Fraction(float frac) : Fraction((int)(frac * MAX_DIGITS), MAX_DIGITS) {} // constructor with parameters (float) - convert float to fraction
 
     int getNumerator() const { return m_numetator; }     // get the numerator
     int getDenominator() const { return m_denominator; } // get the denominator
 
-    // operor io : >> , <<
+    // operator io : >> , <<
 
     friend std::istream &operator>>(std::istream &stream, Fraction &franc);
     friend std::ostream &operator<<(std::ostream &stream, const Fraction &franc);
 
-    // opertor +
+    // opertor + :
 
     friend Fraction operator+(Fraction francA, Fraction francB);
     friend Fraction operator+(float fracA, Fraction fracB);
     friend Fraction operator+(Fraction francA, float fracB);
 
-    // opertor -
+    // opertor - :
+
     friend Fraction operator-(Fraction francA, Fraction francB);
     friend Fraction operator-(float fracA, Fraction fracB);
     friend Fraction operator-(Fraction francA, float fracB);
 
-    // opertor *
+    // opertor * :
+
     friend Fraction operator*(Fraction francA, Fraction francB);
     friend Fraction operator*(float fracA, Fraction fracB);
     friend Fraction operator*(Fraction francA, float fracB);
@@ -67,29 +71,29 @@ namespace ariel
 
     // opertor += , -= , *= , /=
 
-    Fraction &operator+=(Fraction franc);
-    Fraction &operator+=(float franc);
+    Fraction &operator+=(Fraction fra);
+    Fraction &operator+=(float fra);
 
-    Fraction &operator-=(Fraction franc);
-    Fraction &operator-=(float franc);
+    Fraction &operator-=(Fraction fra);
+    Fraction &operator-=(float fra);
 
-    Fraction &operator*=(Fraction other);
-    Fraction &operator*=(float other);
+    Fraction &operator*=(Fraction fra);
+    Fraction &operator*=(float fra);
 
-    Fraction &operator/=(Fraction other);
-    Fraction &operator/=(float other);
+    Fraction &operator/=(Fraction fra);
+    Fraction &operator/=(float fra);
 
     // opertor ++ , -- : perfix and postfix
 
-    Fraction &operator++() { return (*this += Fraction(1, 1)); }
+    Fraction &operator++();
     Fraction operator++(int);
 
-    Fraction &operator--() { return (*this -= Fraction(1, 1)); }
+    Fraction &operator--();
     Fraction operator--(int);
 
     // bool operators : == , != , > , >= , < , <=
 
-    friend bool operator==(Fraction fracA, Fraction fracB);
+    friend bool operator==(Fraction fracA, Fraction fracB); // in the .cpp file
     friend bool operator==(Fraction francA, float fracB) { return francA == Fraction(fracB); }
     friend bool operator==(float francA, Fraction fracB) { return Fraction(francA) == fracB; }
 
@@ -97,11 +101,11 @@ namespace ariel
     friend bool operator!=(Fraction francA, float fracB) { return !(francA == fracB); }
     friend bool operator!=(float francA, Fraction fracB) { return !(francA == fracB); }
 
-    friend bool operator>(Fraction francA, Fraction francB);
+    friend bool operator>(Fraction francA, Fraction francB); // in the .cpp file
     friend bool operator>(Fraction francA, float francB) { return francA > Fraction(francB); }
     friend bool operator>(float francA, Fraction francB) { return Fraction(francA) > francB; }
 
-    friend bool operator>=(Fraction francA, Fraction francB);
+    friend bool operator>=(Fraction francA, Fraction francB); // in the .cpp file
     friend bool operator>=(Fraction francA, float francB) { return francA >= Fraction(francB); }
     friend bool operator>=(float francA, Fraction francB) { return Fraction(francA) >= francB; }
 
